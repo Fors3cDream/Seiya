@@ -11,8 +11,8 @@
 
 BOT_NAME = 'seiya'
 
-SPIDER_MODULES = ['seiya.spiders']
-NEWSPIDER_MODULE = 'seiya.spiders'
+SPIDER_MODULES = ['seiya.spider.spiders']
+NEWSPIDER_MODULE = 'seiya.spider.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -64,9 +64,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'seiya.pipelines.SeiyaPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'seiya.spider.pipelines.SeiyaPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
