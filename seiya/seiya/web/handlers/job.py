@@ -56,3 +56,14 @@ def education_stat():
 @job.route('/education_stat.json')
 def education_stat_json():
     return jsonify(job_.education_stat())
+
+# 同等学历不同城市薪资对比
+@job.route('/salary_by_city_and_edu')
+def salary_by_city_and_edu():
+    rows = job_.salary_by_city_and_edu()
+    return render_template('job/salary_by_city_and_edu.html', rows=rows)
+
+# 同等学历不同城市薪资对比 JSON 格式
+@job.route('/salary_by_city_and_edu.json')
+def salary_by_city_and_edu_json():
+    return jsonify(job_.salary_by_city_and_edu())

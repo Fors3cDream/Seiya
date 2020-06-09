@@ -82,3 +82,16 @@ def education_stat():
         func.count(Job.education).label('count')
     ).group_by('education').order_by(desc('count'))
     return [row._asdict() for row in rows]
+
+# 同等学历不同城市薪资对比
+def salary_by_city_and_edu():
+    rows = session.query(
+        Job.city,
+        Job.education,
+        func.avg((Job.salary_low+Job.salary_up)/2).label('salary')
+    ).filter(and_(Job.salary_low>0, Job.salary_up>0)
+    ).group_by('city', 'education').order_by(desc('city'))
+    rows = [row._asdict() for row in rows]
+    for row in rows:
+        row['salary'] = float('{:.2f}'.format(row['salary']))
+    return rows
