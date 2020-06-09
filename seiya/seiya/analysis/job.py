@@ -62,3 +62,23 @@ def hot_tags_plot(format='png'):
     img = BytesIO()  # 开启进入内存空间之门，img 就是内存中的一片地方
     plt.savefig(img, format=format)  # 将图片数据保存到内存中
     return img.getvalue()  # 返回内存中的图片数据
+
+# 工作经验统计
+def experience_stat():
+    rows = session.query(
+        # 拼接字符串
+        func.concat(
+            Job.experience_low, '-', Job.experience_up, '年'
+        ).label('experience'),
+        # 分组后，获得字符串的数量
+        func.count('experience').label('count')
+    ).group_by('experience').order_by(desc('count'))
+    return [row._asdict() for row in rows]
+
+# 学历要求统计
+def education_stat():
+    rows = session.query(
+        Job.education,
+        func.count(Job.education).label('count')
+    ).group_by('education').order_by(desc('count'))
+    return [row._asdict() for row in rows]

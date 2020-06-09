@@ -31,8 +31,28 @@ def hot_tags_plot():
     # 这里就是将一张图的数据直接发送给浏览器
     return Response(job_.hot_tags_plot(), content_type='image/png')
 
-# 数量排名前十的热门标签 JSON 格式 
+# 数量排名前十的热门标签 JSON 数据
 @job.route('/hot_tags.json')
 def hot_tags_json():
     d = {key: int(value) for key, value in job_.hot_tags().to_dict().items()}
     return jsonify(d)
+
+# 工作经验统计
+@job.route('/experience_stat')
+def experience_stat():
+    return render_template('job/experience_stat.html', rows=job_.experience_stat())
+
+# 工作经验统计 JSON 格式
+@job.route('/experience_stat.json')
+def experience_stat_json():
+    return jsonify(job_.experience_stat())
+
+# 学历要求统计
+@job.route('/education_stat')
+def education_stat():
+    return render_template('job/education_stat.html', rows=job_.education_stat())
+
+# 学历要求统计 JSON 格式
+@job.route('/education_stat.json')
+def education_stat_json():
+    return jsonify(job_.education_stat())
